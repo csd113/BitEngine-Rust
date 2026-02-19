@@ -1,0 +1,54 @@
+[package]
+name = "bitcoin-node-manager"
+version = "0.1.0"
+edition = "2021"
+description = "Bitcoin & Electrs Node Manager — macOS GUI"
+authors = ["Bitcoin Node Manager"]
+
+[[bin]]
+name = "bitcoin_node_manager"
+path = "src/main.rs"
+
+[dependencies]
+# GUI framework: Iced chosen for pure-Rust native rendering (no webview dependency,
+# no Node.js toolchain, bundles cleanly as a macOS .app, and has a proper Elm-style
+# architecture that maps perfectly onto the reactive status-polling model here).
+iced = { version = "0.13", features = ["tokio", "advanced"] }
+
+# Async runtime (iced tokio feature drives the executor)
+tokio = { version = "1", features = ["full"] }
+
+# HTTP client for Bitcoin JSON-RPC calls
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }
+
+# Serialisation
+serde       = { version = "1",  features = ["derive"] }
+serde_json  = "1"
+
+# Error handling
+anyhow    = "1"
+thiserror = "1"
+
+# Native macOS file-picker (async, works with tokio)
+rfd = "0.15"
+
+# XDG / macOS Application Support directory resolution
+directories = "5"
+
+# Unix system calls (flock for single-instance guard)
+libc = "0.2"
+
+# Needed to name the Action type returned by scrollable::scroll_to
+iced_runtime = "0.13"
+
+[dev-dependencies]
+tempfile = "3"
+
+[profile.release]
+opt-level     = 3
+lto           = "thin"
+codegen-units = 1
+strip         = true
+
+[profile.release.build-override]
+opt-level = 3
