@@ -359,6 +359,6 @@ MIT — see [LICENSE](LICENSE).
 
 ## Related projects
 
-- [BitForge](https://github.com/csd113/BitForge-Python) — builds Bitcoin Core and Electrs binaries for use with BitEngine
+- [BitForge](https://github.com/csd113/BitForge-Rust) — builds Bitcoin Core and Electrs binaries for use with BitEngine
 - [Bitcoin Core](https://github.com/bitcoin/bitcoin)
 - [Electrs](https://github.com/romanz/electrs)
